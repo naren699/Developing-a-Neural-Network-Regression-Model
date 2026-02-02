@@ -7,7 +7,8 @@ To develop a neural network regression model for the given dataset.
 Explain the problem statement
 
 ## Neural Network Model
-Include the neural network model diagram.
+
+![alt text](image.png)
 
 ## DESIGN STEPS
 ### STEP 1: 
@@ -44,15 +45,25 @@ Use the trained model to predict  for a new input value .
 
 ## PROGRAM
 
-### Name:
+### Name: NARENDHIRAN P
 
-### Register Number:
+### Register Number: 212224230177
 
 ```python
 class NeuralNet(nn.Module):
-    def __init__(self):
+  def __init__(self):
         super().__init__()
-        #Include your code here
+        # Include your code here
+        self.fc1 = nn.Linear(1,8)
+        self.fc2 = nn.Linear(8,10)
+        self.fc3 = nn.Linear(10,1)
+        self.relu = nn.ReLU()
+        self.history = {'loss':[]}
+  def forward(self,x):
+        x = self.relu(self.fc1(x))
+        x = self.relu(self.fc2(x))
+        x = self.fc3(x)
+        return x
 
 
 
@@ -61,20 +72,38 @@ class NeuralNet(nn.Module):
 
 
 def train_model(ai_brain, X_train, y_train, criterion, optimizer, epochs=2000):
-    #Include your code here
+    # Write your code here
+    for epoch in range(epochs):
+      optimizer.zero_grad()
+      loss = criterion(ai_brain(X_train),y_train)
+      loss.backward()
+      optimizer.step()
+
+      ai_brain.history['loss'].append(loss.item())
+      if epoch % 200 == 0:
+          print(f'Epoch [{epoch}/{epochs}], Loss: {loss.item():.6f}')
+    
 
 ```
 
 ### Dataset Information
-Include screenshot of the generated data
+
+![alt text](image-1.png)
 
 ### OUTPUT
 
 ### Training Loss Vs Iteration Plot
-Include your plot here
+
+![alt text](image-2.png)
 
 ### New Sample Data Prediction
-Include your sample input and output here
 
+![alt text](image-3.png)
+
+![alt text](image-4.png)
+
+![alt text](image-5.png)
+
+![alt text](image-6.png)
 ## RESULT
 Thus, a neural network regression model was successfully developed and trained using PyTorch.
